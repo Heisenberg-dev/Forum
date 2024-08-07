@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<p>Test connection</p>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('content')
+    <h1>Добро пожаловать на наш форум!</h1>
+    <p>Здесь вы найдете интересные обсуждения и разделы.</p>
+@endsection

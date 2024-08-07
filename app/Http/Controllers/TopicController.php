@@ -12,7 +12,7 @@ class TopicController extends Controller
         
         $topics = Topic::all();
         // dd($topics);
-        return view('topics.index', compact('topics')); // Ensure you have this view created
+        return view('topics.index', compact('topics')); 
     }
 
     public function create()
@@ -21,15 +21,18 @@ class TopicController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-        ]);
+{
+    $request->validate([
+        'title' => 'required',
+        'description' => 'required',
+    ]);
 
-        Topic::create($request->all());
-        return redirect()->route('topics.index');
-    }
+    // Используем только поля title и description для создания новой записи
+    $data = $request->only(['title', 'description']);
+
+    Topic::create($data);
+    return redirect()->route('topics.index');
+}
 
     public function show(Topic $topic)
     {

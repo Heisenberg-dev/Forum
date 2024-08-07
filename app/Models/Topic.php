@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['title', 'description', '_token', '_method'];
+
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
 }
