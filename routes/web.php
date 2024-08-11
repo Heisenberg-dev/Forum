@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TopicController;
+use App\Mail\TestMail;
 
 
 Route::get('/', function () {
@@ -16,6 +17,10 @@ Route::get('/dashboard', function () {
 Route::get('topics', [TopicController::class, 'index'])->name('topics.index');
 Route::resource('topics', TopicController::class)->except(['index']);
 
+Route::get('/send-test-mail', function(){
+    \Mail::to('recipint@example.com')->send(new TestMail());
+    return 'Test mail sent!';
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
