@@ -27,8 +27,8 @@ class TestMail extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@example.com')
-                    ->subject('Test Mail')
-                    ->view('emails.test');
+        return $this->from('noreply@example.com', 'Your Application Name')
+                    ->subject('Welcome to the Forum')
+                    ->view('emails.welcome');
     }
 }
