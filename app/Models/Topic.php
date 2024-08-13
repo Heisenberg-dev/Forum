@@ -9,9 +9,21 @@ class Topic extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', '_token', '_method'];
+    protected $fillable = ['title', 'description'];
 
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany(Post::class);
     }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function latestActivity()
+    {
+        return $this->hasOne(Post::class)->latest();
+    }
+
 }

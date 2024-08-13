@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\PostController;
 use App\Mail\TestMail;
 
 
@@ -14,8 +15,14 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Route::post('topics/{topic}/posts', [PostController::class, 'store'])->name('topics.posts.store');
 Route::get('topics', [TopicController::class, 'index'])->name('topics.index');
 Route::resource('topics', TopicController::class)->except(['index']);
+
+Route::middleware('auth')->group(function () {
+    Route::post('topics/{topic}/posts', [PostController::class, 'store'])->name('topics.posts.store');
+});
+
 
 Route::get('/send-test-mail', function(){
     \Mail::to('recipint@example.com')->send(new TestMail());

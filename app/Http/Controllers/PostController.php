@@ -3,42 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-public function store(Request $request)
-{
-$request->validate([
-'body' => 'required',
-'thread_id' => 'required',
-]);
+    public function store(Request $request, Topic $topic)
+    {
+        \Log::info('Store method called');
+        \Log::info('Request data: ', $request->all());
+        \Log::info('Topic ID: ', [$topic->id]);
 
-Post::create($request->all());
 
-return back()->with('success', 'Post created successfully.');
-}
+        $request->validate([
+            'content' => 'required',
+        ]);
 
-public function edit(Post $post)
-{
-return view('posts.edit', compact('post'));
-}
+        $topic->posts()->create([
+            'content' => $request->content,
+            'user_id' => auth()->id(),
+        ]);
 
-public function update(Request $request, Post $post)
-{
-$request->validate([
-'body' => 'required',
-]);
+        \Log::info('Post created successfully');
+        
+        return redirect()->route('topics.show', $topic);
+    }
 
-$post->update($request->all());
-
-return back()->with('success', 'Post updated successfully.');
-}
-
-public function destroy(Post $post)
-{
-$post->delete();
-
-return back()->with('success', 'Post deleted successfully.');
-}
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return redirect()->back();
+    }
 }
