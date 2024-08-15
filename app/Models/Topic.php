@@ -23,7 +23,13 @@ class Topic extends Model
 
     public function latestActivity()
     {
-        return $this->hasOne(Post::class)->latest();
+        return $this->hasOne(Post::class)->latest();   
     }
+
+    public function category()
+{
+    return $this->belongsTo(Category::class);
+}
+
 
 }

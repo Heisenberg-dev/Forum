@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <h1>{{ $topic->title }}</h1>
     <p>{{ $topic->description }}</p>
 
@@ -30,3 +31,8 @@
     @else
     <p>Please <a href="{{ route('login') }}">log in</a> to add a post.</p>
 @endif
+@endsection
+
+
+
+

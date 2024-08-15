@@ -1,8 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Topic;
 use Illuminate\Http\Request;
+
+
 
 class TopicController extends Controller
 {
@@ -10,14 +13,15 @@ class TopicController extends Controller
     public function index()
     {
         
-        $topics = Topic::all();
+        $topics = Topic::with('posts', 'author', 'latestactivity' )->get();
         // dd($topics);
-        return view('topics.index', compact('topics')); 
+        return view('topics.index', compact('topics'));
     }
 
     public function create()
-    {
-        return view('topics.create');
+    {   
+        $categories = Category::all();
+        return view('topics.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -25,13 +29,16 @@ class TopicController extends Controller
     $request->validate([
         'title' => 'required',
         'description' => 'required',
+        'category_id' => 'required|exists:categories,id',
+        'tags'=> 'nulable|string',
     ]);
 
-    // Используем только поля title и description для создания новой записи
-    $data = $request->only(['title', 'description']);
+    
+    $data = $request->only(['title', 'description', 'category_id','tags']);
+    $data['user_id'] = auth()->id();
 
     Topic::create($data);
-    return redirect()->route('topics.index');
+    return redirect()->route('topics.show')->compact('index');
 }
 
     public function show(Topic $topic)
@@ -41,7 +48,8 @@ class TopicController extends Controller
 
     public function edit(Topic $topic)
     {
-        return view('topics.edit', compact('topic'));
+        $categories = Category::all();
+        return view('topics.edit', compact('topic', 'categories'));
     }
 
     public function update(Request $request, Topic $topic)
@@ -49,6 +57,8 @@ class TopicController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
+            'category_id' => 'required|exists:categories,id',
+            'tags'=> 'nulable|string',
         ]);
 
         $topic->update($request->all());

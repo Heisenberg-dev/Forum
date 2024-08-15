@@ -3,37 +3,7 @@
 <head>
     <title>Forum</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .header {
-            background-color: #333;
-            color: #fff;
-            padding: 15px;
-            text-align: center;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .header a {
-            color: #fff;
-            padding: 14px 20px;
-            text-decoration: none;
-            text-align: center;
-        }
-        .header a:hover {
-            background-color: #575757;
-            color: white;
-        }
-        .container {
-            margin-top: 20px;
-        }
-        .username {
-            margin-left: auto;
-            margin-right: 20px;
-        }
-    </style>
+
 </head>
 <body>
     <div class="header">
@@ -62,3 +32,6 @@
     </div>
 </body>
 </html>
+
+
+

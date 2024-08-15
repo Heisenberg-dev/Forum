@@ -17,11 +17,14 @@ Route::get('/dashboard', function () {
 
 // Route::post('topics/{topic}/posts', [PostController::class, 'store'])->name('topics.posts.store');
 Route::get('topics', [TopicController::class, 'index'])->name('topics.index');
+Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 Route::resource('topics', TopicController::class)->except(['index']);
 
 Route::middleware('auth')->group(function () {
     Route::post('topics/{topic}/posts', [PostController::class, 'store'])->name('topics.posts.store');
 });
+
+
 
 
 Route::get('/send-test-mail', function(){

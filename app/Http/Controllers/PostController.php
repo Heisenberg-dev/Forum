@@ -10,10 +10,6 @@ class PostController extends Controller
 {
     public function store(Request $request, Topic $topic)
     {
-        \Log::info('Store method called');
-        \Log::info('Request data: ', $request->all());
-        \Log::info('Topic ID: ', [$topic->id]);
-
 
         $request->validate([
             'content' => 'required',
@@ -24,14 +20,12 @@ class PostController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        \Log::info('Post created successfully');
-        
         return redirect()->route('topics.show', $topic);
     }
 
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect()->back();
+        return redirect()->back()->with('status', 'Post deleted successfully');
     }
 }
