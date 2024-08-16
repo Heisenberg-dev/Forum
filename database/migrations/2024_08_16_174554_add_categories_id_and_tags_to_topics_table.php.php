@@ -10,11 +10,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('topics', function (Blueprint $table) {
-            // Проверяем, существует ли столбец category_id, прежде чем добавлять его
+            // Добавляем столбец category_id, если он отсутствует
             if (!Schema::hasColumn('topics', 'category_id')) {
                 $table->unsignedBigInteger('category_id')->default(1);
             }
 
+            // Добавляем столбец tags, если он отсутствует
             if (!Schema::hasColumn('topics', 'tags')) {
                 $table->string('tags')->nullable();
             }
@@ -23,15 +24,19 @@ return new class extends Migration
         // Устанавливаем значение для всех существующих записей, если они не имеют категории
         Topic::whereNull('category_id')->update(['category_id' => 1]);
 
+        // Добавляем внешний ключ для category_id
         Schema::table('topics', function (Blueprint $table) {
-            // Добавляем внешний ключ после того, как убедились, что столбец существует
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('category_id')
+                  ->references('id')
+                  ->on('categories')
+                  ->onDelete('cascade');
         });
     }
 
     public function down(): void
     {
         Schema::table('topics', function (Blueprint $table) {
+            // Удаляем внешний ключ и столбцы
             $table->dropForeign(['category_id']);
             $table->dropColumn('category_id');
             $table->dropColumn('tags');

@@ -1,20 +1,16 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 
-
-
 class TopicController extends Controller
 {
-   
     public function index()
     {
-        
-        $topics = Topic::with('posts', 'author', 'latestactivity' )->get();
-        // dd($topics);
+        $topics = Topic::with('posts', 'author', 'latestActivity')->get();
         return view('topics.index', compact('topics'));
     }
 
@@ -27,19 +23,21 @@ class TopicController extends Controller
     public function store(Request $request)
 {
     $request->validate([
-        'title' => 'required',
+        'title' => 'required|string|max:255',
         'description' => 'required',
         'category_id' => 'required|exists:categories,id',
-        'tags'=> 'nulable|string',
+        'tags' => 'nullable|string',
     ]);
 
-    
-    $data = $request->only(['title', 'description', 'category_id','tags']);
+    $data = $request->only(['title', 'description', 'category_id', 'tags']);
     $data['user_id'] = auth()->id();
 
-    Topic::create($data);
-    return redirect()->route('topics.show')->compact('index');
+    $topic = Topic::create($data); // Создаем топик
+
+    // Перенаправляем на страницу отображения созданного топика
+    return redirect()->route('topics.show', ['topic' => $topic->id]);
 }
+
 
     public function show(Topic $topic)
     {
@@ -58,7 +56,7 @@ class TopicController extends Controller
             'title' => 'required',
             'description' => 'required',
             'category_id' => 'required|exists:categories,id',
-            'tags'=> 'nulable|string',
+            'tags' => 'nullable|string',
         ]);
 
         $topic->update($request->all());

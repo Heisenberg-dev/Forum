@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
 use App\Mail\TestMail;
 
 
@@ -23,6 +24,8 @@ Route::resource('topics', TopicController::class)->except(['index']);
 Route::middleware('auth')->group(function () {
     Route::post('topics/{topic}/posts', [PostController::class, 'store'])->name('topics.posts.store');
 });
+
+Route::resource('categories', CategoryController::class);
 
 
 
