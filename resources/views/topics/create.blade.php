@@ -1,37 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Create New Topic</h1>
+<div class="container mt-5">
+    <h1 class="mb-4">Create New Topic</h1>
 
-<form action="{{ route('topics.store') }}" method="POST">
-    @csrf
+    <form action="{{ route('topics.store') }}" method="POST">
+        @csrf
 
-    <div>
-        <label for="category_id">Category</label>
-        <select name="category_id" id="category_id" required>
-            @foreach($categories as $category)
-                <option value="{{ $category->id }}" {{ isset($topic) && $topic->category_id == $category->id ? 'selected' : '' }}>
-                    {{ $category->name }}
-                </option>
-            @endforeach
-        </select>
-    </div>
+        <div class="form-group">
+            <label for="category_id">Category</label>
+            <select name="category_id" id="category_id" class="form-control" required>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+        </div>
 
-    <div>
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title" placeholder="Topic Title" required>
-    </div>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" class="form-control" placeholder="Topic Title" required>
+        </div>
 
-    <div>
-        <label for="description">Description</label>
-        <textarea name="description" id="description" placeholder="Topic Description" required></textarea>
-    </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" class="form-control" placeholder="Topic Description" required></textarea>
+        </div>
 
-    <div>
-        <label for="tags">Tags</label>
-        <input type="text" name="tags" id="tags" placeholder="Tags (comma separated)">
-    </div>
+        <div class="form-group">
+            <label for="tags">Tags</label>
+            <input type="text" name="tags" id="tags" class="form-control" placeholder="Tags (comma separated)">
+        </div>
 
-    <button type="submit">Create Topic</button>
-</form>
+        <button type="submit" class="btn btn-primary">Create Topic</button>
+    </form>
+</div>
 @endsection
