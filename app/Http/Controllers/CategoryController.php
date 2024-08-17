@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::withCount('topics')->orderBy('topics_count', 'desc')->get();
         return view('categories.index', compact('categories'));
     }
 
@@ -31,7 +31,8 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        return view('categories.show', compact('category'));
+        $topics = $category->topics()->withCount('posts')->orderBy('posts_count', 'desc')->get();
+        return view('categories.show', compact('category', 'topics'));
     }
 
     public function edit(Category $category)

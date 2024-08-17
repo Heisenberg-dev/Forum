@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <h1 class="mb-4">Create New Topic</h1>
 
-    <form action="{{ route('topics.store') }}" method="POST">
+    <form action="{{ route('topics.store', '[category] => $category->id') }}" method="POST">
         @csrf
 
         <div class="form-group">

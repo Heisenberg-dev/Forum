@@ -9,7 +9,8 @@ class Topic extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description'];
+    protected $fillable = ['title', 'description', 'category_id', 'user_id', 'tags'];
+
 
     public function posts()
     {
@@ -23,13 +24,13 @@ class Topic extends Model
 
     public function latestActivity()
     {
-        return $this->hasOne(Post::class)->latest();   
+        return $this->hasOne(Post::class)->latest();
     }
 
     public function category()
-{
-    return $this->belongsTo(Category::class);
-}
+    {
+        return $this->belongsTo(Category::class);
+    }
 
 
 }

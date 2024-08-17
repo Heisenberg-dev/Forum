@@ -8,6 +8,8 @@ use App\Http\Controllers\CategoryController;
 use App\Mail\TestMail;
 
 
+//WELCOME
+
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -16,7 +18,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::post('topics/{topic}/posts', [PostController::class, 'store'])->name('topics.posts.store');
+//TOPICS, POSTS
 Route::get('topics', [TopicController::class, 'index'])->name('topics.index');
 Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 Route::resource('topics', TopicController::class)->except(['index']);
@@ -25,22 +27,32 @@ Route::middleware('auth')->group(function () {
     Route::post('topics/{topic}/posts', [PostController::class, 'store'])->name('topics.posts.store');
 });
 
+
+//CATEGORIES
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('/categories/{category}/topics/create', [TopicController::class, 'create'])->name('topics.create');
+Route::post('/categories/{category}/topics', [TopicController::class, 'store'])->name('topics.store');
 Route::resource('categories', CategoryController::class);
 
 
+//MAIL
 
-
-Route::get('/send-test-mail', function(){
+Route::get('/send-test-mail', function () {
     \Mail::to('recipint@example.com')->send(new TestMail());
     return 'Test mail sent!';
 });
 
+
+//AUTH 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+//HEADER
 Route::get('/rules', function () {
     return view('rules');
 })->name('rules');
@@ -58,4 +70,4 @@ Route::get('/hot', function () {
 })->name('hot');
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

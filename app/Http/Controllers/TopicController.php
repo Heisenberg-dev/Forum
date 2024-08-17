@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class TopicController extends Controller
 {
-    public function index()
+    public function index(Category $category)
     {
-        $topics = Topic::with('posts', 'author', 'latestActivity')->get();
+        $topics = $category->topics()->with('posts', 'author', 'latestActivity')->get();
         return view('topics.index', compact('topics'));
     }
 
@@ -35,7 +35,7 @@ class TopicController extends Controller
     $topic = Topic::create($data); // Создаем топик
 
     // Перенаправляем на страницу отображения созданного топика
-    return redirect()->route('topics.show', ['topic' => $topic->id]);
+    return redirect()->route('categories.show', ['category' => $topic->id]);
 }
 
 

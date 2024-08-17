@@ -1,13 +1,15 @@
-@extends('layouts.layout')
-
-@section('title', 'Categories')
+@extends('layouts.app')
 
 @section('content')
-    <h1>Categories</h1>
-    <a href="{{ route('categories.create') }}" class="btn btn-primary">Add Category</a>
-    <ul>
-        @foreach ($categories as $category)
-            <li>{{ $category->name }}</li>
-        @endforeach
-    </ul>
+<h1>Forum Categories</h1>
+
+<ul>
+    @foreach($categories as $category)
+        <li>
+            <a href="{{ route('categories.show', $category->id) }}">
+                {{ $category->name }} ({{ $category->topics_count }} topics)
+            </a>
+        </li>
+    @endforeach
+</ul>
 @endsection
