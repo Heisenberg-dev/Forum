@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>@yield('title') - Forum</title>
-    @vite(['resources/css/home.css'])
+    @vite(['resources/css/home.css', 'resources/css/category.css'])
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     
 </head>
