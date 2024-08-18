@@ -9,7 +9,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::withCount('topics')->get();
+        $categories = Category::withCount('topics')->paginate(10);
+
 
         foreach ($categories as $category) {
             $category->views = $category->topics()->sum('views'); // Общее количество просмотров в категории

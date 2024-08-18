@@ -3,7 +3,7 @@
 <head>
     <title>Forum</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @vite(['resources/css/home.css'])
 </head>
 <body>
     <div class="header">
