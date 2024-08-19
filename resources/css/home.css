@@ -30,11 +30,7 @@ body {
     background-color: #575757;
     color: white;
 }
-.container {
 
-    width: 2000px;
-    margin-top: 20px;
-}
 
 .mt-5{
     width: 100%;
@@ -44,8 +40,28 @@ body {
     margin-right: 20px;
 }
 
+.category-name {
+    color: #333333; 
+    font-weight: bold; 
+}
 
 
 .row{
-    width: 1800px;
+    width: 100%;
+}
+
+.badge{
+    margin-left: 10px !important;
+  
+}
+
+
+
+.col-md-4{
+    width: 300px
+}
+
+.ad-block {
+    max-width: 250px; 
+    margin: 0 auto; 
 }

@@ -1,8 +1,8 @@
 
 
-.category-name {
+.a  {
     font-weight: bold;
-    color: black;
+    color: #333 !important;
     text-decoration: none;
 }
 
@@ -67,4 +67,21 @@
     width: 50px;
     position: sticky;
     top: 20px;
+}
+
+
+
+.col-md-4{
+    width: 300px
+}
+
+.ad-block {
+    max-width: 250px; 
+    margin: 0 auto; 
+}
+
+.container {
+
+    width: 100%;
+    margin-top: 20px;
 }
