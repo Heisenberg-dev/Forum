@@ -14,11 +14,13 @@ class CategorySeeder extends Seeder
         Category::create(['name' => 'Programming']);
         Category::create(['name' => 'Design']);
         Category::create(['name' => 'Sport']);
-        Category::create(['name' => 'Bussiness']);
+        Category::create(['name' => 'Business']);
         Category::create(['name' => 'People']);
         Category::create(['name' => 'Videogames']);
         Category::create(['name' => 'Talkative']);
         Category::create(['name' => 'Relationship']);
+        Category::create(['name' => 'Humor']);
+        Category::create(['name' => 'Nature']);
     }
 }
 

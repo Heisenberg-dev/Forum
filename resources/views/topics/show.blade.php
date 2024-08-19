@@ -5,12 +5,12 @@
     <h1>{{ $topic->title }}</h1>
     <p>{{ $topic->description }}</p>
 
-    <h2>Posts</h2>
+    <h2>Comments</h2>
     <ul>
-        @foreach ($topic->posts as $post)
+        @foreach ($topic->comments as $comment)
             <li>
-                {{ $post->content }}
-                <form action="{{ route('posts.destroy', $post) }}" method="POST" style="display:inline;">
+                {{ $comment->content }}
+                <form action="{{ route('comments.destroy', $comment) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit">Delete</button>
@@ -20,19 +20,15 @@
     </ul>
 
     @if(auth()->check())
-    <form action="{{ route('topics.posts.store', $topic->id) }}" method="POST">
+    <form action="{{ route('topics.comments.store', $topic->id) }}" method="POST">
         @csrf
         <div>
-            <label for="content">New Post</label>
-            <textarea name="content" id="content" placeholder="New Post" required></textarea>
+            <label for="content">New Comment</label>
+            <textarea name="content" id="content" placeholder="New Comment" required></textarea>
         </div>
-        <button type="submit">Add Post</button>
+        <button type="submit">Add Comment</button>
     </form>
     @else
-    <p>Please <a href="{{ route('login') }}">log in</a> to add a post.</p>
+    <p>Please <a href="{{ route('login') }}">log in</a> to add a comment.</p>
 @endif
 @endsection
-
-
-
-

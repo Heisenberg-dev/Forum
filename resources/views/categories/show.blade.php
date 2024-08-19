@@ -13,7 +13,7 @@
     @foreach($topics as $topic)
         <li>
             <a href="{{ route('topics.show', $topic->id) }}">
-                {{ $topic->title }} ({{ $topic->posts_count }} posts)
+                {{ $topic->title }} ({{ $topic->comments_count }} comments)
             </a>
         </li>
     @endforeach

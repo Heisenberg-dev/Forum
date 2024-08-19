@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class Category extends Model
 {
@@ -17,21 +16,16 @@ class Category extends Model
         return $this->hasMany(Topic::class);
     }
 
-
-
-    // Подсчет общего количества комментариев в категории
+    // Метод для подсчета всех комментариев во всех темах
     public function commentsCount()
     {
-        return $this->topics()->withCount('posts')->get()->sum('posts_count');
+        return $this->topics()->withCount('comments')->get()->sum('comments_count');
     }
 
-     // Получение последнего времени активности в категории
-
-     public function latestActivity()
-{
-    $latestPost = $this->topics()->with('posts')->get()->flatMap->posts->sortByDesc('created_at')->first();
-    return $latestPost ? $latestPost->created_at : null;
-}
-
-
+    // Метод для получения времени последней активности в любой из тем
+    public function latestActivity()
+    {
+        $latestComment = $this->topics()->with('comments')->get()->flatMap->comments->sortByDesc('created_at')->first();
+        return $latestComment ? $latestComment->created_at : null;
+    }
 }

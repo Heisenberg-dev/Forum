@@ -11,10 +11,9 @@ class Topic extends Model
 
     protected $fillable = ['title', 'description', 'category_id', 'user_id', 'tags'];
 
-
-    public function posts()
+    public function comments()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Comment::class);
     }
 
     public function author()
@@ -24,7 +23,7 @@ class Topic extends Model
 
     public function latestActivity()
     {
-        return $this->hasOne(Post::class)->latest();
+        return $this->hasOne(Comment::class)->latest();
     }
 
     public function category()
@@ -36,5 +35,4 @@ class Topic extends Model
     {
         $this->increment('views');
     }
-
 }

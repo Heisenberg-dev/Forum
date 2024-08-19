@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Category;
 
 class CategoryController extends Controller
@@ -11,37 +10,21 @@ class CategoryController extends Controller
     {
         $categories = Category::withCount('topics')->paginate(10);
 
-
         foreach ($categories as $category) {
-            $category->views = $category->topics()->sum('views'); // Общее количество просмотров в категории
-            $category->replies = $category->commentsCount(); // Общее количество комментариев в категории
-            $category->last_activity = $category->latestActivity(); // Время последнего комментария
+            $category->views = $category->topics()->sum('views');
+            $category->replies = $category->commentsCount();
+            $category->last_activity = $category->latestActivity();
         }
-        
+
         return view('categories.index', compact('categories'));
-    }
-
-    public function create()
-    {
-        return view('categories.create');
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-        ]);
-
-        Category::create($request->all());
-
-        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
     }
 
     public function show(Category $category)
     {
-        $topics = $category->topics()->withCount('posts')->orderBy('posts_count', 'desc')->get();
+        $topics = $category->topics()->withCount('comments')->orderBy('comments_count', 'desc')->get();
         return view('categories.show', compact('category', 'topics'));
     }
+
 
     public function edit(Category $category)
     {

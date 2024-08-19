@@ -6,6 +6,7 @@ use App\Http\Controllers\TopicController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Mail\TestMail;
+use App\Http\Controllers\CommentController;
 
 
 //WELCOME
@@ -18,14 +19,19 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-//TOPICS, POSTS
-Route::get('topics', [TopicController::class, 'index'])->name('topics.index');
-Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
-Route::resource('topics', TopicController::class)->except(['index']);
+//TOPICS, COMMENTS
+Route::middleware('auth')->group(function () {
+    Route::post('topics/{topic}/comments', [CommentController::class, 'store'])->name('topics.comments.store');
+    Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+});
+
 
 Route::middleware('auth')->group(function () {
-    Route::post('topics/{topic}/posts', [PostController::class, 'store'])->name('topics.posts.store');
+    Route::post('topics/{topic}/comments', [CommentController::class, 'store'])->name('topics.comments.store');
+    Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 });
+
+Route::resource('topics', TopicController::class)->except(['index']);
 
 
 //CATEGORIES
@@ -33,7 +39,7 @@ Route::get('/categories', [CategoryController::class, 'index'])->name('categorie
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
 Route::get('/categories/{category}/topics/create', [TopicController::class, 'create'])->name('topics.create');
 Route::post('/categories/{category}/topics', [TopicController::class, 'store'])->name('topics.store');
-Route::resource('categories', CategoryController::class);
+
 
 
 //MAIL
