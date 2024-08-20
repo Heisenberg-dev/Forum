@@ -4,14 +4,14 @@
 <div class="container mt-5">
     <h1 class="mb-4">Create New Topic</h1>
 
-    <form action="{{ route('topics.store', '[category] => $category->id') }}" method="POST">
+    <form action="{{ route('topics.store', $category->id) }}" method="POST">
         @csrf
 
         <div class="form-group">
             <label for="category_id">Category</label>
             <select name="category_id" id="category_id" class="form-control" required>
-                @foreach($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @foreach($categories as $cat)
+                    <option value="{{ $cat->id }}" {{ $cat->id == $category->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                 @endforeach
             </select>
         </div>

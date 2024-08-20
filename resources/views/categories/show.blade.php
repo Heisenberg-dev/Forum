@@ -6,8 +6,8 @@
 <p>{{ $category->description }}</p>
 
 <a href="{{ route('topics.create', $category->id) }}" class="btn btn-primary">Create New Topic</a>
-
-<h2>Topics</h2>
+<br>
+<br>
 
 <ul>
     @foreach($topics as $topic)

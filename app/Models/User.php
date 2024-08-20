@@ -12,14 +12,22 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     protected $fillable = [
-        "name","email","password",
-        ];
+        "name",
+        "email",
+        "password",
+    ];
 
-        protected $hidden = [
-            'password', 'remember_token',
-        ];
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-        protected $casts = [
-            'email_verified_at' => 'datetime',
-        ];
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    public function getAvatarAttribute()
+    {
+        return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email))) . '?d=mp&s=50';
+    }
 }

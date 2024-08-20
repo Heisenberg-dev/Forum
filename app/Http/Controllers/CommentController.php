@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    // Метод для сохранения нового комментария
+   
     public function store(Request $request, Topic $topic)
     {
         $request->validate([
             'content' => 'required|string|max:500',
         ]);
 
-        // Создание нового комментария
+        
         $comment = new Comment();
         $comment->content = $request->input('content');
         $comment->user_id = auth()->id();  // ID текущего пользователя

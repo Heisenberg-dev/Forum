@@ -55,5 +55,26 @@ body {
   
 }
 
+.media img {
+    border-radius: 50%;
+}
+
+.media-body h5 {
+    font-weight: bold;
+}
+
+.media-body small {
+    color: #888;
+}
+
+.btn-link {
+    color: #dc3545;
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    color: #a71d2a;
+    text-decoration: underline;
+}
 
 
