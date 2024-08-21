@@ -58,6 +58,7 @@
                 @endif
             </li>
             <hr class="border-gray-200">
+            
         @endforeach
     </ul>
 

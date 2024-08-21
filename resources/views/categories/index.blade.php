@@ -26,7 +26,7 @@
         </div>
 
         <div class="w-full md:w-1/4 lg:w-3/12">
-            <div class="bg-white p-4 rounded-lg shadow-md">
+            <div class="bg-white p-4 rounded-lg shadow-md ml-10">
                 <h3 class="text-lg font-semibold mb-2">Реклама</h3>
                 <p class="text-gray-600">Ваш рекламный блок здесь</p>
             </div>
