@@ -8,7 +8,7 @@
                 @foreach($categories as $category)
                     <li class="border-b last:border-none p-4 flex justify-between items-center">
                         <div class="flex items-center">
-                            <a href="{{ route('categories.show', $category->id) }}" class="text-lg font-semibold text-blue-500 hover:underline">{{ $category->name }}</a>
+                            <a href="{{ route('categories.show', $category->id) }}" class="text-lg font-semibold text-gray-600 hover:underline">{{ $category->name }}</a>
                             <span class="ml-2 text-sm text-gray-500">({{ $category->topics_count }} topics)</span>
                         </div>
                         <div class="flex items-center text-sm text-gray-500">
@@ -21,6 +21,7 @@
             </ul>
 
             <div class="mt-4">
+                
                 {{ $categories->links() }}
             </div>
         </div>
