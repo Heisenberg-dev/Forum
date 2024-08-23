@@ -5,7 +5,7 @@
     <h1 class="text-2xl font-bold mb-4">Редактировать профиль</h1>
     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT')
+        @method('PATCH')
 
         <div class="mb-4">
             <label for="name" class="block text-gray-700">Имя</label>
@@ -37,9 +37,17 @@
         </div>
 
         <div class="mb-4">
-            <label for="avatar" class="block text-gray-700">Аватар</label>
-            <input type="file" name="avatar" id="avatar" class="w-full p-2 border rounded">
+    <label for="avatar" class="block text-gray-700">Avatar</label>
+    <input type="file" name="avatar" id="avatar" class="w-full p-2 border rounded">
+    @if ($user->avatar)
+        <div class="mt-2">
+            <img src="{{ $user->avatar }}" alt="Current Avatar" class="h-16 w-16 rounded-full">
+            <label>
+                <input type="checkbox" name="remove_avatar"> Remove Avatar
+            </label>
         </div>
+    @endif
+</div>
 
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Сохранить изменения</button>
     </form>
