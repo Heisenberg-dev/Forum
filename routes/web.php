@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Mail\TestMail;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 
 //WELCOME
@@ -25,13 +26,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 });
 
+Route::get('/topics/{topic}', [TopicController::class, 'show'])->name('topics.show');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::post('topics/{topic}/comments', [CommentController::class, 'store'])->name('topics.comments.store');
     Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 });
 
-Route::resource('topics', TopicController::class)->except(['index']);
+// Route::resource('topics', TopicController::class)->except(['index']);
 
 
 //CATEGORIES
@@ -51,11 +55,19 @@ Route::get('/send-test-mail', function () {
 
 
 //AUTH 
+
+Route::get('/profile', [ProfileController::class, 'edit'])->middleware('check.auth');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+//REGISTRATION
+
+Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
 
 
 //HEADER

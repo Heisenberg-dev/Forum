@@ -10,11 +10,13 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable;
+    use HasFactory, Notifiable;
+
     protected $fillable = [
-        "name",
-        "email",
-        "password",
+        'name',
+        'email',
+        'password',
+        'username',
     ];
 
     protected $hidden = [

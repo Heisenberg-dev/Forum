@@ -39,9 +39,6 @@
         <div class="mb-4">
             <label for="avatar" class="block text-gray-700">Аватар</label>
             <input type="file" name="avatar" id="avatar" class="w-full p-2 border rounded">
-            @if($user->avatar)
-                <img src="{{ asset('storage/' . $user->avatar) }}" alt="Current Avatar" class="w-20 h-20 mt-2 rounded-full">
-            @endif
         </div>
 
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Сохранить изменения</button>
