@@ -10,16 +10,18 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
     public function show(Request $request): View
     {
+        \Log::info('Entering show method in ProfileController');
         return view('profile.show', [
             'user' => $request->user(),
         ]);
     }
-
+    
 
     public function edit(Request $request): View
     {
@@ -33,6 +35,7 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        dd($request->all());
         $user = $request->user();
 
         // Валидация дополнительных полей
@@ -43,6 +46,9 @@ class ProfileController extends Controller
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'nullable|string|min:8|confirmed',
         ]);
+
+
+        Log::info('Validated Data:', $validatedData);
 
         // Обновление профиля
         $user->fill($validatedData);
@@ -59,11 +65,14 @@ class ProfileController extends Controller
             // Удаление старого аватара, если нужно
             if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
                 Storage::disk('public')->delete($user->avatar);
+                
             }
 
             // Сохранение нового аватара
             $avatarPath = $request->file('avatar')->store('avatars', 'public');
             $user->avatar = $avatarPath;
+
+            dd($avatarPath);
         }
 
         if ($request->filled('password')) {
